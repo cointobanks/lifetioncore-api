@@ -62,7 +62,7 @@
   "dependencies": {
     "async": "*",
     "bitcore-lib-dash": "^0.14.1",
-    "bitcore-message-dash": "^1.0.5",
+    "bitcore-message-dash": "^1.0.6",
     "body-parser": "^1.13.3",
     "compression": "^1.6.1",
     "lodash": "^2.4.1",
