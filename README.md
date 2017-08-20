@@ -353,6 +353,8 @@ Sample output:
 Note: if pagination params are not specified, the result is an array of transactions.
 
 ### Transaction Broadcasting
+
+#### Standard transaction 
 POST method:
 ```
   /insight-api-dash/tx/send
@@ -376,6 +378,28 @@ POST response:
 
   {
       txid: "c7736a0a0046d5a8cc61c8c3c2821d4d7517f5de2bc66a966011aaa79965ffba"
+  }
+```
+
+#### InstantSend transaction 
+
+Conditions :   
+* Every inputs should have 6 confirmations.  
+* Fee are 0.001 per input.  
+* Less than 100 inputs.  
+    
+POST method:
+```
+  /insight-api-dash/tx/sendix
+```
+POST params:
+```
+  rawtx: "signed transaction as hex string"
+```
+POST response:
+```
+  {
+      txid: [:txid]
   }
 ```
 
@@ -480,6 +504,10 @@ Where "xxx" can be:
   /insight-api-dash/utils/estimatefee[?nbBlocks=2]
 ```
 
+### Masternodes List
+```
+  /insight-api-dash/masternodes/list
+```
 
 ## Web Socket API
 The web socket API is served using [socket.io](http://socket.io).
