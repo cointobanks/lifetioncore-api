@@ -386,7 +386,8 @@ POST response:
 Conditions :   
 * Every inputs should have 6 confirmations.  
 * Fee are 0.001 per input.  
-    
+* Transaction value should be below SPORK_5_INSTANTSEND_MAX_VALUE (see spork route)
+
 POST method:
 ```
   /insight-api-dash/tx/sendix
@@ -400,6 +401,29 @@ POST response:
   {
       txid: [:txid]
   }
+```
+
+### Sporks List 
+GET method: 
+```
+  /insight-api-dash/sporks
+```
+
+Sample output: 
+```
+{"sporks":
+    {
+        "SPORK_2_INSTANTSEND_ENABLED":0,
+        "SPORK_3_INSTANTSEND_BLOCK_FILTERING":0,
+        "SPORK_5_INSTANTSEND_MAX_VALUE":2000,
+        "SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT":0,
+        "SPORK_9_SUPERBLOCKS_ENABLED":0,
+        "SPORK_10_MASTERNODE_PAY_UPDATED_NODES":0,
+        "SPORK_12_RECONSIDER_BLOCKS":0,
+        "SPORK_13_OLD_SUPERBLOCK_FLAG":4070908800,
+        "SPORK_14_REQUIRE_SENTINEL_FLAG":4070908800
+    }
+}
 ```
 
 ### Budget Proposal List
