@@ -386,7 +386,6 @@ POST response:
 Conditions :   
 * Every inputs should have 6 confirmations.  
 * Fee are 0.001 per input.  
-* Less than 100 inputs.  
     
 POST method:
 ```
