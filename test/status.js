@@ -8,6 +8,7 @@ describe('Status', function() {
   describe('/status', function() {
     var info = {
       version: 110000,
+      insightVersion:"0.5.0", 
       protocolVersion: 70002,
       blocks: 548645,
       timeOffset: 0,
@@ -47,6 +48,7 @@ describe('Status', function() {
       var res = {
         jsonp: function(data) {
           should.exist(data.info.version);
+          should.exist(data.info.insightversion);
           should.exist(data.info.protocolversion);
           should.exist(data.info.blocks);
           should.exist(data.info.timeoffset);
