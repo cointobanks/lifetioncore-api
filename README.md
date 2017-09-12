@@ -20,11 +20,42 @@
   </a>
 </div>
 
-# Insight API Dash
-
-A Dash blockchain REST and web socket API service for [Bitcore Node Dash](https://github.com/dashpay/bitcore-node-dash).
 
 This is a backend-only service. If you're looking for the web frontend application, take a look at https://github.com/dashpay/insight-ui-dash.
+
+## Table of Content
+- [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Query Rate Limit](#query-rate-limit)
+- [API HTTP Endpoints](#api-http-endpoints)
+    - [Block](#block)
+    - [Block Index](#block-index)
+    - [Raw Block](#raw-block)
+    - [Block Summaries](#block-summaries)
+    - [Transaction](#transaction)
+    - [Address](#address)
+    - [Address Properties](#address-properties)
+    - [Unspent Outputs](#unspent-outputs)
+    - [Unspent Outputs for Multiple Addresses](#unspent-outputs-for-multiple-addresses)
+    - [InstantSend Transactions](#instantsend-transactions)
+    - [Transactions by Block](#transactions-by-block)
+    - [Transactions by Address](#transactions-by-address)
+    - [Transactions for Multiple Addresses](#transactions-for-multiple-addresses)
+    - [Transaction Broadcasting](#transaction-broadcasting)
+    - [Sporks List](#sporks-list)
+    - [Budget Proposal List](#budget-proposal-list)
+    - [Budget Proposal Detail](budget-proposal-detail)
+    - [Masternodes List](masternodes-list)
+    - [Historic Blockchain Data Sync Status](historic-blockchain-data-sync-status)
+    - [Live Network P2P Data Sync Status](live-network-p2p-data-sync-status)
+    - [Status of the Bitcoin Network](status-of-the-bitcoin-network)
+    - [Utility Methods](utility-methods)
+- [web-socket-api](web-socket-api)
+    - [example-usage](#example-usage)
+- [Notes on Upgrading from v0.3](#notes-on-upgrading-from-v03)
+- [Notes on Upgrading from v0.2](#notes-on-upgrading-from-v02)
+- [Resources](#resources)
+- [License](https://github.com/dashevo/insight-api-dash/blob/master/LICENSE)
 
 ## Getting Started
 
@@ -38,88 +69,13 @@ bitcore-node-dash start
 
 The API endpoints will be available by default at: `http://localhost:3001/insight-api-dash/`
 
-## Prerequisites
+### Prerequisites
 
-- [Bitcore Node Dash 3.x](https://github.com/dashpay/bitcore-node-dash)
+- [Bitcore Node Dash 3.x](https://github.com/dashevo/bitcore-node-dash)
 
 **Note:** You can use an existing Dash data directory, however `txindex`, `addressindex`, `timestampindex` and `spentindex` needs to be set to true in `dash.conf`, as well as a few other additional fields.
 
-## Notes on Upgrading from v0.3
-
-The unspent outputs format now has `satoshis` and `height`:
-```
-[
-  {
-    "address":"mo9ncXisMeAoXwqcV5EWuyncbmCcQN4rVs",
-    "txid":"d5f8a96faccf79d4c087fa217627bb1120e83f8ea1a7d84b1de4277ead9bbac1",
-    "vout":0,
-    "scriptPubKey":"76a91453c0307d6851aa0ce7825ba883c6bd9ad242b48688ac",
-    "amount":0.000006,
-    "satoshis":600,
-    "confirmations":0,
-    "ts":1461349425
-  },
-  {
-    "address": "mo9ncXisMeAoXwqcV5EWuyncbmCcQN4rVs",
-    "txid": "bc9df3b92120feaee4edc80963d8ed59d6a78ea0defef3ec3cb374f2015bfc6e",
-    "vout": 1,
-    "scriptPubKey": "76a91453c0307d6851aa0ce7825ba883c6bd9ad242b48688ac",
-    "amount": 0.12345678,
-    "satoshis: 12345678,
-    "confirmations": 1,
-    "height": 300001
-  }
-]
-```
-The `timestamp` property will only be set for unconfirmed transactions and `height` can be used for determining block order. The `confirmationsFromCache` is nolonger set or necessary, confirmation count is only cached for the time between blocks.
-
-There is a new `GET` endpoint or raw blocks at `/rawblock/<blockHash>`:
-
-Response format:
-```
-{
-  "rawblock": "blockhexstring..."
-}
-```
-
-There are a few changes to the `GET` endpoint for `/addr/[:address]`:
-
-- The list of txids in an address summary does not include orphaned transactions
-- The txids will be sorted in block order
-- The list of txids will be limited at 1000 txids
-- There are two new query options "from" and "to" for pagination of the txids (e.g. `/addr/[:address]?from=1000&to=2000`)
-
-Some additional general notes:
-- The transaction history for an address will be sorted in block order
-- The response for the `/sync` endpoint does not include `startTs` and `endTs` as the sync is no longer relevant as indexes are built in bitcoind.
-- The endpoint for `/peer` is no longer relevant connection to bitcoind is via ZMQ.
-- `/tx` endpoint results will now include block height, and spentTx related fields will be set to `null` if unspent.
-- `/block` endpoint results does not include `confirmations` and will include `poolInfo`.
-
-## Notes on Upgrading from v0.2
-
-Some of the fields and methods are not supported:
-
-The `/tx/<txid>` endpoint JSON response will not include the following fields on the "vin"
-object:
-- `doubleSpentTxId` // double spends are not currently tracked
-- `isConfirmed` // confirmation of the previous output
-- `confirmations` // confirmations of the previous output
-- `unconfirmedInput`
-
-The `/tx/<txid>` endpoint JSON response will not include the following fields on the "vout"
-object.
-- `spentTs`
-
-The `/status?q=getTxOutSetInfo` method has also been removed due to the query being very slow and locking bitcoind.
-
-Plug-in support for Insight API is also no longer available, as well as the endpoints:
-- `/email/retrieve`
-- `/rates/:code`
-
-Caching support has not yet been added in the v0.3 upgrade.
-
-## Query Rate Limit
+### Query Rate Limit
 
 To protect the server, insight-api has a built it query rate limiter. It can be configurable in `bitcore-node.json` with:
 ``` json
@@ -520,6 +476,10 @@ Sample output:
         } } ]
 ```
 
+### Masternodes List
+```
+  /insight-api-dash/masternodes/list
+```
 
 ### Historic Blockchain Data Sync Status
 ```
@@ -547,11 +507,6 @@ Where "xxx" can be:
 ### Utility Methods
 ```
   /insight-api-dash/utils/estimatefee[?nbBlocks=2]
-```
-
-### Masternodes List
-```
-  /insight-api-dash/masternodes/list
 ```
 
 ## Web Socket API
@@ -637,25 +592,81 @@ html
 </body>
 </html>
 ```
+## Notes on Upgrading from v0.3
 
-## License
-(The MIT License)
+The unspent outputs format now has `satoshis` and `height`:
+```
+[
+  {
+    "address":"mo9ncXisMeAoXwqcV5EWuyncbmCcQN4rVs",
+    "txid":"d5f8a96faccf79d4c087fa217627bb1120e83f8ea1a7d84b1de4277ead9bbac1",
+    "vout":0,
+    "scriptPubKey":"76a91453c0307d6851aa0ce7825ba883c6bd9ad242b48688ac",
+    "amount":0.000006,
+    "satoshis":600,
+    "confirmations":0,
+    "ts":1461349425
+  },
+  {
+    "address": "mo9ncXisMeAoXwqcV5EWuyncbmCcQN4rVs",
+    "txid": "bc9df3b92120feaee4edc80963d8ed59d6a78ea0defef3ec3cb374f2015bfc6e",
+    "vout": 1,
+    "scriptPubKey": "76a91453c0307d6851aa0ce7825ba883c6bd9ad242b48688ac",
+    "amount": 0.12345678,
+    "satoshis: 12345678,
+    "confirmations": 1,
+    "height": 300001
+  }
+]
+```
+The `timestamp` property will only be set for unconfirmed transactions and `height` can be used for determining block order. The `confirmationsFromCache` is nolonger set or necessary, confirmation count is only cached for the time between blocks.
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+There is a new `GET` endpoint or raw blocks at `/rawblock/<blockHash>`:
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+Response format:
+```
+{
+  "rawblock": "blockhexstring..."
+}
+```
 
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+There are a few changes to the `GET` endpoint for `/addr/[:address]`:
+
+- The list of txids in an address summary does not include orphaned transactions
+- The txids will be sorted in block order
+- The list of txids will be limited at 1000 txids
+- There are two new query options "from" and "to" for pagination of the txids (e.g. `/addr/[:address]?from=1000&to=2000`)
+
+Some additional general notes:
+- The transaction history for an address will be sorted in block order
+- The response for the `/sync` endpoint does not include `startTs` and `endTs` as the sync is no longer relevant as indexes are built in bitcoind.
+- The endpoint for `/peer` is no longer relevant connection to bitcoind is via ZMQ.
+- `/tx` endpoint results will now include block height, and spentTx related fields will be set to `null` if unspent.
+- `/block` endpoint results does not include `confirmations` and will include `poolInfo`.
+
+## Notes on Upgrading from v0.2
+
+Some of the fields and methods are not supported:
+
+The `/tx/<txid>` endpoint JSON response will not include the following fields on the "vin"
+object:
+- `doubleSpentTxId` // double spends are not currently tracked
+- `isConfirmed` // confirmation of the previous output
+- `confirmations` // confirmations of the previous output
+- `unconfirmedInput`
+
+The `/tx/<txid>` endpoint JSON response will not include the following fields on the "vout"
+object.
+- `spentTs`
+
+The `/status?q=getTxOutSetInfo` method has also been removed due to the query being very slow and locking bitcoind.
+
+Plug-in support for Insight API is also no longer available, as well as the endpoints:
+- `/email/retrieve`
+- `/rates/:code`
+
+Caching support has not yet been added in the v0.3 upgrade.
+
+## Resources
+
+- (Medium)[How to setup a Dash Instant-Send Transaction using Insight API — The comprehensive way](https://medium.com/@obusco/setup-instant-send-transaction-the-comprehensive-way-a80a8a0572e)
