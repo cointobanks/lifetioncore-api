@@ -104,7 +104,7 @@ Or disabled entirely with:
 ### Block
 ```
   /insight-api-dash/block/[:hash]
-  /insight-api-dash/block/00000000a967199a2fad0877433c93df785a8d8ce062e5f9b451cd1397bdbf62
+  /insight-api-dash/block/0000000006e7b38e8ab2d351239019c01de9a148b5baef58cfe52dfd9917cedc
 ```
 
 ### Block Index
@@ -116,16 +116,15 @@ Get block hash by height
 This would return:
 ```
 {
-  "blockHash":"000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+  "blockHash":"00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c"
 }
 ```
-which is the hash of the Genesis block (0 height)
+which is the hash of the TestNet Genesis block (0 height)
 
 
 ### Raw Block
 ```
   /insight-api-dash/rawblock/[:blockHash]
-  /insight-api-dash/rawblock/[:blockHeight]
 ```
 
 This would return:
@@ -139,7 +138,7 @@ This would return:
 
 Get block summaries by date:
 ```
-  /insight-api-dash/blocks?limit=3&blockDate=2016-04-22
+  /insight-api-dash/blocks?limit=3&blockDate=2017-04-22
 ```
 
 Example response:
@@ -147,26 +146,26 @@ Example response:
 {
   "blocks": [
     {
-      "height": 408495,
-      "size": 989237,
-      "hash": "00000000000000000108a1f4d4db839702d72f16561b1154600a26c453ecb378",
-      "time": 1461360083,
-      "txlength": 1695,
+      "height": 188928,
+      "size": 312,
+      "hash": "00000000ee9a976cf459240c2add1147137ca6126b7906fa13ce3d80b5cadcc7",
+      "time": 1492905418,
+      "txlength": 1,
       "poolInfo": {
         "poolName": "BTCC Pool",
         "url": "https://pool.btcc.com/"
       }
-    }
+    },{...},{...}
   ],
-  "length": 1,
+  "length": 3,
   "pagination": {
-    "next": "2016-04-23",
-    "prev": "2016-04-21",
-    "currentTs": 1461369599,
-    "current": "2016-04-22",
-    "isToday": true,
-    "more": true,
-    "moreTs": 1461369600
+    "next":"2017-04-23",
+    "prev":"2017-04-21",
+    "currentTs":1492905599,
+    "current":"2017-04-22",
+    "isToday":false,
+    "more":true,
+    "moreTs":1492905600
   }
 }
 ```
@@ -174,16 +173,16 @@ Example response:
 ### Transaction
 ```
   /insight-api-dash/tx/[:txid]
-  /insight-api-dash/tx/525de308971eabd941b139f46c7198b5af9479325c2395db7f2fb5ae8562556c
+  /insight-api-dash/tx/ebdca263fe1c75c8609ce8fe3d82a320a0b3ca840f4df995883f5dab1b9ff8d9
   /insight-api-dash/rawtx/[:rawid]
-  /insight-api-dash/rawtx/525de308971eabd941b139f46c7198b5af9479325c2395db7f2fb5ae8562556c
+  /insight-api-dash/rawtx/ebdca263fe1c75c8609ce8fe3d82a320a0b3ca840f4df995883f5dab1b9ff8d9
 ```
 
 ### Address
 ```
   /insight-api-dash/addr/[:addr][?noTxList=1][&from=&to=]
-  /insight-api-dash/addr/mmvP3mTe53qxHdPqXEvdu8WdC7GfQ2vmx5?noTxList=1
-  /insight-api-dash/addr/mmvP3mTe53qxHdPqXEvdu8WdC7GfQ2vmx5?from=1000&to=2000
+  /insight-api-dash/addr/ybi3gej7Ea1MysEYLR7UMs3rMuLJH5aVsW?noTxList=1
+  /insight-api-dash/addr/yPv7h2i8v3dJjfSH4L3x91JSJszjdbsJJA?from=1000&to=2000
 ```
 
 ### Address Properties
@@ -203,25 +202,15 @@ Sample return:
 ```
 [
   {
-    "address":"mo9ncXisMeAoXwqcV5EWuyncbmCcQN4rVs",
-    "txid":"d5f8a96faccf79d4c087fa217627bb1120e83f8ea1a7d84b1de4277ead9bbac1",
+    "address":"ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz",
+    "txid":"05d70bc1c4cf1c3afefc3250480d733b5666b19cb1f629901ded82cb2d6263d1",
     "vout":0,
-    "scriptPubKey":"76a91453c0307d6851aa0ce7825ba883c6bd9ad242b48688ac",
-    "amount":0.000006,
-    "satoshis":600,
-    "confirmations":0,
-    "ts":1461349425
-  },
-  {
-    "address": "mo9ncXisMeAoXwqcV5EWuyncbmCcQN4rVs",
-    "txid": "bc9df3b92120feaee4edc80963d8ed59d6a78ea0defef3ec3cb374f2015bfc6e",
-    "vout": 1,
-    "scriptPubKey": "76a91453c0307d6851aa0ce7825ba883c6bd9ad242b48688ac",
-    "amount": 0.12345678,
-    "satoshis: 12345678,
-    "confirmations": 1,
-    "height": 300001
-  }
+    "scriptPubKey":"76a914e22dc8acf5bb5624f4beef22fb2238f8479e183f88ac",
+    "amount":0.01194595,
+    "satoshis":1194595,
+    "height":142204,
+    "confirmations":124317
+  },{...}
 ]
 ```
 
@@ -229,7 +218,7 @@ Sample return:
 GET method:
 ```
   /insight-api-dash/addrs/[:addrs]/utxo
-  /insight-api-dash/addrs/2NF2baYuJAkCKo5onjUKEPdARQkZ6SYyKd5,2NAre8sX2povnjy4aeiHKeEh97Qhn97tB1f/utxo
+  /insight-api-dash/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx/utxo
 ```
 
 POST method:
@@ -239,7 +228,7 @@ POST method:
 
 POST params:
 ```
-addrs: 2NF2baYuJAkCKo5onjUKEPdARQkZ6SYyKd5,2NAre8sX2povnjy4aeiHKeEh97Qhn97tB1f
+addrs: ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx
 ```
 
 ### InstantSend Transactions
@@ -269,19 +258,19 @@ Sample output:
 ### Transactions by Block
 ```
   /insight-api-dash/txs/?block=HASH
-  /insight-api-dash/txs/?block=00000000fa6cf7367e50ad14eb0ca4737131f256fc4c5841fd3c3f140140e6b6
+  /insight-api-dash/txs/?block=000000000814dd7cf470bd835334ea6624ebf0291ea857a5ab37c65592726375
 ```
 ### Transactions by Address
 ```
   /insight-api-dash/txs/?address=ADDR
-  /insight-api-dash/txs/?address=mmhmMNfBiZZ37g1tgg2t8DDbNoEdqKVxAL
+  /insight-api-dash/txs/?address=yWFfdp9nLUjy1kJczFhRuBMUjtTkTTiyMv
 ```
 
 ### Transactions for Multiple Addresses
 GET method:
 ```
   /insight-api-dash/addrs/[:addrs]/txs[?from=&to=]
-  /insight-api-dash/addrs/2NF2baYuJAkCKo5onjUKEPdARQkZ6SYyKd5,2NAre8sX2povnjy4aeiHKeEh97Qhn97tB1f/txs?from=0&to=20
+  /insight-api-dash/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx/txs?from=0&to=20
 ```
 
 POST method:
@@ -291,7 +280,7 @@ POST method:
 
 POST params:
 ```
-addrs: 2NF2baYuJAkCKo5onjUKEPdARQkZ6SYyKd5,2NAre8sX2povnjy4aeiHKeEh97Qhn97tB1f
+addrs: ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx
 from (optional): 0
 to (optional): 20
 noAsm (optional): 1 (will omit script asm from results)
