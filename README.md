@@ -1,3 +1,25 @@
+<h1 align="center">Insight-api-dash</h1>
+
+<div align="center">
+  <strong>A Dash blockchain REST and WebSocket API Service</strong>
+</div>
+<br />
+<div align="center">
+  <!-- Stability -->
+  <a href="https://nodejs.org/api/documentation.html#documentation_stability_index">
+    <img src="https://img.shields.io/badge/stability-stable-green.svg?style=flat-square"
+      alt="API stability" />
+  </a>
+  <!-- Build Status -->
+  <a href="https://travis-ci.org/dashevo/insight-api-dash">
+    <img src="https://img.shields.io/travis/dashevo/insight-api-dash/master.svg?style=flat-square" alt="Build Status" />
+  </a>
+  <!-- NPM version -->
+  <a href="https://npmjs.org/package/insight-api-dash">
+    <img src="https://img.shields.io/npm/v/insight-api-dash.svg?style=flat-square" alt="NPM version" />
+  </a>
+</div>
+
 # Insight API Dash
 
 A Dash blockchain REST and web socket API service for [Bitcore Node Dash](https://github.com/dashpay/bitcore-node-dash).
