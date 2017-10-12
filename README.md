@@ -469,6 +469,26 @@ Sample output:
 ```
   /insight-api-dash/masternodes/list
 ```
+### Validate Masternode
+```
+  /insight-api-dash/masternodes/validate/[:payee]
+  /insight-api-dash/masternodes/validate/yRuALkPpeYpTgxdNn2L5YgGktASJYDYPAo
+```
+
+Sample valid output:
+```
+    {
+        "valid":true,
+        "vin":"e3a6b7878a7e9413898bb379b323c521676f9d460db17ec3bf42d9ac0c9a432f-1",
+        "status":"ENABLED",
+        "rank":1,
+        "ip":"217.182.229.146:19999",
+        "protocol":70208,
+        "payee":"yRuALkPpeYpTgxdNn2L5YgGktASJYDYPAo",
+        "activeseconds":158149,
+        "lastseen":1507810068
+    }
+```
 
 ### Historic Blockchain Data Sync Status
 ```
@@ -658,4 +678,4 @@ Caching support has not yet been added in the v0.3 upgrade.
 
 ## Resources
 
-- (Medium)[How to setup a Dash Instant-Send Transaction using Insight API — The comprehensive way](https://medium.com/@obusco/setup-instant-send-transaction-the-comprehensive-way-a80a8a0572e)
+- (Medium)[How to setup a Dash Instant-Send Transaction using Insight API?????????The comprehensive way](https://medium.com/@obusco/setup-instant-send-transaction-the-comprehensive-way-a80a8a0572e)
