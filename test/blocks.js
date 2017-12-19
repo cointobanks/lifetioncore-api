@@ -56,6 +56,24 @@ var blockIndexes = {
     height: 599999,
     difficulty: 75786.58855499285
   },
+  '0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1':{
+    hash: '0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1',
+    chainWork: '0000000000000000000000000000000000000000000000000000000000200011',
+    prevHash: '00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c',
+    nextHash: '00000c6264fab4ba2d23990396f42a76aa4822f03cbc7634b79f4dfea36fccc2',
+    confirmations: 40493,
+    height: 1,
+    difficulty: 0.0002441371325370145
+  },
+  1:{
+    hash: '0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1',
+    chainWork: '0000000000000000000000000000000000000000000000000000000000200011',
+    prevHash: '00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c',
+    nextHash: '00000c6264fab4ba2d23990396f42a76aa4822f03cbc7634b79f4dfea36fccc2',
+    confirmations: 40493,
+    height: 1,
+    difficulty: 0.0002441371325370145
+  },
   533974: {
     hash: '0000000000000afa0c3c0afd450c793a1e300ec84cbe9555166e06132f19a8f7',
     chainWork: '0000000000000000000000000000000000000000000000054626b1839ade284a',
@@ -362,4 +380,94 @@ describe('Blocks', function() {
 
     blocks.getBlockReward('000000000000c53bf17a98b9ee042d6d4c3faf37d7a9f5c1335cce6df896f2f4', cb); // should return difficulty of block 100000
   });
+});
+
+describe('#getHeaders', function(){
+	describe('/block-headers/:height route', function() {
+		var node = {
+			log: sinon.stub(),
+			services: {
+				bitcoind: {
+					getBlockHeaders: function(blockIdentifier, callback, nbBlock) {
+					  var result = [];
+					  for(var i = 0; i<nbBlock; i++){
+					    result.push(blockIndexes[blockIdentifier])
+            }
+						callback(null, result);
+					}
+				}
+			}
+		};
+		it('should give an array of 25 block headers', function() {
+			var blocks = new BlockController({node: node});
+
+			var insight = {
+        hash: '0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1',
+        chainWork: '0000000000000000000000000000000000000000000000000000000000200011',
+        prevHash: '00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c',
+        nextHash: '00000c6264fab4ba2d23990396f42a76aa4822f03cbc7634b79f4dfea36fccc2',
+        confirmations: 40493,
+        height: 1,
+        difficulty: 0.0002441371325370145
+    };
+			var req = {
+				params: {
+          blockIdentifier: "0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1"
+				}
+			};
+			var res = {
+				jsonp: function(data) {
+				  data.should.have.property('headers');
+          data.headers.should.have.length(25);
+					should(data.headers[0]).eql(insight);
+				}
+			};
+
+      blocks.blockHeaders(req, res)
+		});
+	});
+	describe('/block-headers/:height/:nbOfBlock route', function() {
+		var node = {
+			log: sinon.stub(),
+			services: {
+				bitcoind: {
+          getBlockHeaders: function(blockIdentifier, callback, nbBlock) {
+            var result = [];
+            for(var i = 0; i<nbBlock; i++){
+              result.push(blockIndexes[blockIdentifier])
+            }
+            callback(null, result);
+          }
+				}
+			}
+		};
+		it('should give an array of 50 block headers', function() {
+			var blocks = new BlockController({node: node});
+			var insight = {
+        hash: '0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1',
+        chainWork: '0000000000000000000000000000000000000000000000000000000000200011',
+        prevHash: '00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c',
+        nextHash: '00000c6264fab4ba2d23990396f42a76aa4822f03cbc7634b79f4dfea36fccc2',
+        confirmations: 40493,
+        height: 1,
+        difficulty: 0.0002441371325370145
+			};
+			var height = 533974;
+			var req = {
+				params: {
+					blockIdentifier: "0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1",
+					nbOfBlock:50
+				}
+			};
+			var res = {
+				jsonp: function(data) {
+          data.should.have.property('headers');
+          data.headers.should.have.length(50);
+          should(data.headers[0]).eql(insight);
+				}
+			};
+
+			blocks.blockHeaders(req, res);
+		});
+	});
 });

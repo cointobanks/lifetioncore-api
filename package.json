@@ -1,7 +1,7 @@
 {
   "name": "insight-api-dash",
   "description": "A Dash blockchain REST and web socket API service for Bitcore Node.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "repository": "git://github.com/dashevo/insight-api-dash.git",
   "contributors": [
     {
@@ -61,11 +61,11 @@
   "bitcoreNode": "lib",
   "dependencies": {
     "async": "*",
-    "bitcore-lib-dash": "^0.14.1",
-    "bitcore-message-dash": "^1.0.6",
+    "bitcore-lib-dash": "^0.15.2",
+    "bitcore-message-dash": "^1.0.9",
     "body-parser": "^1.13.3",
     "compression": "^1.6.1",
-    "lodash": "^2.4.1",
+    "lodash": "=4.17.1",
     "lru-cache": "^4.0.1",
     "morgan": "^1.7.0",
     "request": "^2.64.0"
