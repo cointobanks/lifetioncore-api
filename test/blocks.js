@@ -113,7 +113,10 @@ describe('Blocks', function() {
       'nextblockhash': '000000000000a0b730b5be60e65b4a730d1fdcf1d023c9e42c0e5bf4a059f709',
       'reward': '3.88010204',
       'isMainChain': true,
-      'poolInfo': {}
+      'poolInfo': { 
+        'poolName': 'Node Stratum Pool',
+        'url': 'https://github.com/zone117x/node-stratum-pool'
+      }
     };
 
     var bitcoreBlock = bitcore.Block.fromBuffer(new Buffer(blocks['000000000000c53bf17a98b9ee042d6d4c3faf37d7a9f5c1335cce6df896f2f4'], 'hex'));
