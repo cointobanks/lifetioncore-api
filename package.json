@@ -1,5 +1,5 @@
 {
-  "name": "insight-api-dash",
+  "name": "@dashevo/insight-api",
   "description": "A Dash blockchain REST and web socket API service for Bitcore Node.",
   "version": "0.6.0",
   "repository": "git://github.com/dashevo/insight-api-dash.git",
