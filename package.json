@@ -1,8 +1,8 @@
 {
   "name": "@dashevo/insight-api",
-  "description": "A Dash blockchain REST and web socket API service for Bitcore Node.",
+  "description": "A Dash blockchain REST and web socket API service for Dashcore Node.",
   "version": "0.6.0",
-  "repository": "git://github.com/dashevo/insight-api-dash.git",
+  "repository": "git://github.com/dashevo/insight-api.git",
   "contributors": [
     {
       "name": "Gustavo Cortez",
@@ -38,9 +38,9 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/dashevo/insight-api-dash/issues"
+    "url": "https://github.com/dashevo/insight-api/issues"
   },
-  "homepage": "https://github.com/dashevo/insight-api-dash",
+  "homepage": "https://github.com/dashevo/insight-api",
   "license": "MIT",
   "keywords": [
     "insight",
@@ -49,7 +49,8 @@
     "dash api",
     "blockchain api",
     "json",
-    "bitcore-dash"
+    "bitcore-dash",
+    "dashcore"
   ],
   "engines": {
     "node": ">=0.12.0"
