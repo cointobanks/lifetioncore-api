@@ -1,4 +1,4 @@
-<h1 align="center">Insight-api-dash</h1>
+<h1 align="center">Insight-api</h1>
 
 <div align="center">
   <strong>A Dash blockchain REST and WebSocket API Service</strong>
@@ -11,17 +11,17 @@
       alt="API stability" />
   </a>
   <!-- Build Status -->
-  <a href="https://travis-ci.org/dashevo/insight-api-dash">
-    <img src="https://img.shields.io/travis/dashevo/insight-api-dash/master.svg?style=flat-square" alt="Build Status" />
+  <a href="https://travis-ci.org/dashevo/insight-api">
+    <img src="https://img.shields.io/travis/dashevo/insight-api/master.svg?style=flat-square" alt="Build Status" />
   </a>
   <!-- NPM version -->
-  <a href="https://npmjs.org/package/insight-api-dash">
-    <img src="https://img.shields.io/npm/v/insight-api-dash.svg?style=flat-square" alt="NPM version" />
+  <a href="https://npmjs.org/package/@dashevo/insight-api">
+    <img src="https://img.shields.io/npm/v/@dashevo/insight-api.svg?style=flat-square" alt="NPM version" />
   </a>
 </div>
 
 
-This is a backend-only service. If you're looking for the web frontend application, take a look at https://github.com/dashpay/insight-ui-dash.
+This is a backend-only service. If you're looking for the web frontend application, take a look at https://github.com/dashevo/insight-ui.
 
 ## Table of Content
 - [Getting Started](#getting-started)
@@ -67,18 +67,18 @@ This is a backend-only service. If you're looking for the web frontend applicati
 ## Getting Started
 
 ```bashl
-npm install -g bitcore-node-dash@latest
+npm install -g dashcore-node@latest
 bitcore-node-dash create mynode
 cd mynode
-bitcore-node-dash install insight-api-dash
-bitcore-node-dash start
+dashcore-node install insight-api
+dashcore-node start
 ```
 
-The API endpoints will be available by default at: `http://localhost:3001/insight-api-dash/`
+The API endpoints will be available by default at: `http://localhost:3001/insight-api/`
 
 ### Prerequisites
 
-- [Bitcore Node Dash 3.x](https://github.com/dashevo/bitcore-node-dash)
+- [Bitcore Node Dash 3.x](https://github.com/dashevo/dashcore-node)
 
 **Note:** You can use an existing Dash data directory, however `txindex`, `addressindex`, `timestampindex` and `spentindex` needs to be set to true in `dash.conf`, as well as a few other additional fields.
 
@@ -94,7 +94,7 @@ To protect the server, insight-api has a built it query rate limiter. It can be 
     }
   }
 ```
-With all the configuration options available: https://github.com/bitpay/insight-api/blob/master/lib/ratelimiter.js#L10-17
+With all the configuration options available: https://github.com/dashevo/insight-api/blob/master/lib/ratelimiter.js#L10-17
 
 Or disabled entirely with:
 ``` json
