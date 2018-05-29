@@ -808,8 +808,8 @@ There are a few changes to the `GET` endpoint for `/addr/[:address]`:
 
 Some additional general notes:
 - The transaction history for an address will be sorted in block order
-- The response for the `/sync` endpoint does not include `startTs` and `endTs` as the sync is no longer relevant as indexes are built in bitcoind.
-- The endpoint for `/peer` is no longer relevant connection to bitcoind is via ZMQ.
+- The response for the `/sync` endpoint does not include `startTs` and `endTs` as the sync is no longer relevant as indexes are built in dashd.
+- The endpoint for `/peer` is no longer relevant connection to dashd is via ZMQ.
 - `/tx` endpoint results will now include block height, and spentTx related fields will be set to `null` if unspent.
 - `/block` endpoint results does not include `confirmations` and will include `poolInfo`.
 
@@ -828,7 +828,7 @@ The `/tx/<txid>` endpoint JSON response will not include the following fields on
 object.
 - `spentTs`
 
-The `/status?q=getTxOutSetInfo` method has also been removed due to the query being very slow and locking bitcoind.
+The `/status?q=getTxOutSetInfo` method has also been removed due to the query being very slow and locking dashd.
 
 Plug-in support for Insight API is also no longer available, as well as the endpoints:
 - `/email/retrieve`

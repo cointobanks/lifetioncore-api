@@ -58,7 +58,7 @@
     "test": "NODE_ENV=test mocha -R spec --recursive"
   },
   "main": "lib",
-  "bitcoreNode": "lib",
+  "dashcoreNode": "lib",
   "dependencies": {
     "async": "*",
     "@dashevo/dashcore-lib": "^0.15.5",

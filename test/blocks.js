@@ -125,7 +125,7 @@ describe('Blocks', function() {
       log: sinon.stub(),
       getBlock: sinon.stub().callsArgWith(1, null, dashcoreBlock),
       services: {
-        bitcoind: {
+        dashd: {
           getBlockHeader: sinon.stub().callsArgWith(1, null, blockIndexes['000000000000c53bf17a98b9ee042d6d4c3faf37d7a9f5c1335cce6df896f2f4']),
           isMainChain: sinon.stub().returns(true),
           height: 599999
@@ -157,7 +157,7 @@ describe('Blocks', function() {
         log: sinon.stub(),
         getBlock: sinon.stub().callsArgWith(1, null, block),
         services: {
-          bitcoind: {
+          dashd: {
             getBlockHeader: sinon.stub().callsArgWith(1, null, blockIndexes['000000000000000004a118407a4e3556ae2d5e882017e7ce526659d8073f13a4']),
             isMainChain: sinon.stub().returns(true),
             height: 534092
@@ -235,7 +235,7 @@ describe('Blocks', function() {
     var node = {
       log: sinon.stub(),
       services: {
-        bitcoind: {
+        dashd: {
           getRawBlock: stub,
           getBlockHeader: function(hash, callback) {
             callback(null, blockIndexes[hash]);
@@ -270,7 +270,7 @@ describe('Blocks', function() {
     var node = {
       log: sinon.stub(),
       services: {
-        bitcoind: {
+        dashd: {
           getBlockHeader: function(height, callback) {
             callback(null, blockIndexes[height]);
           }
@@ -311,7 +311,7 @@ describe('Blocks', function() {
       log: sinon.stub(),
       getBlock: sinon.stub().callsArgWith(1, null, dashcoreBlock),
       services: {
-        bitcoind: {
+        dashd: {
           getBlockHeader: sinon.stub().callsArgWith(1, null, blockIndexes['0000000000108d4b9231f4ec99ab5dc970b6ec740745f44eee0754f67d598ac3']),
           isMainChain: sinon.stub().returns(true),
           height: 99999
@@ -338,7 +338,7 @@ describe('Blocks', function() {
       log: sinon.stub(),
       getBlock: sinon.stub().callsArgWith(1, null, dashcoreBlock),
       services: {
-        bitcoind: {
+        dashd: {
           getBlockHeader: sinon.stub().callsArgWith(1, null, blockIndexes['000000000008b8c4e86d070a78c978957ae7f0f127ff91aae6e4b0964c92d0b5']),
           isMainChain: sinon.stub().returns(true),
           height: 299999
@@ -365,7 +365,7 @@ describe('Blocks', function() {
       log: sinon.stub(),
       getBlock: sinon.stub().callsArgWith(1, null, dashcoreBlock),
       services: {
-        bitcoind: {
+        dashd: {
           getBlockHeader: sinon.stub().callsArgWith(1, null, blockIndexes['000000000000c53bf17a98b9ee042d6d4c3faf37d7a9f5c1335cce6df896f2f4']),
           isMainChain: sinon.stub().returns(true),
           height: 599999
@@ -390,7 +390,7 @@ describe('#getHeaders', function(){
 		var node = {
 			log: sinon.stub(),
 			services: {
-				bitcoind: {
+        dashd: {
 					getBlockHeaders: function(blockIdentifier, callback, nbBlock) {
 					  var result = [];
 					  for(var i = 0; i<nbBlock; i++){
@@ -433,7 +433,7 @@ describe('#getHeaders', function(){
 		var node = {
 			log: sinon.stub(),
 			services: {
-				bitcoind: {
+        dashd: {
           getBlockHeaders: function(blockIdentifier, callback, nbBlock) {
             var result = [];
             for(var i = 0; i<nbBlock; i++){
