@@ -43,8 +43,15 @@ This is a backend-only service. If you're looking for the web frontend applicati
     - [Transactions for Multiple Addresses](#transactions-for-multiple-addresses)
     - [Transaction Broadcasting](#transaction-broadcasting)
     - [Sporks List](#sporks-list)
+    - [Proposals Informations](#proposals-informations)
+    - [Proposals Count](#proposals-count)
     - [Budget Proposal List](#budget-proposal-list)
+    - [Budget Triggers List](#budget-triggers-list)
     - [Budget Proposal Detail](#budget-proposal-detail)
+    - [Proposal Check](#proposal-check)
+    - [Proposal Deserialization](#proposal-deserialization)
+    - [Proposal Current Votes](#proposal-current-votes)
+    - [Governance Budget](#governance-budget)
     - [Masternodes List](#masternodes-list)
     - [Historic Blockchain Data Sync Status](#historic-blockchain-data-sync-status)
     - [Live Network P2P Data Sync Status](#live-network-p2p-data-sync-status)
@@ -350,9 +357,9 @@ POST response:
 
 #### InstantSend transaction
 
-Conditions :   
-* Every inputs should have 6 confirmations.  
-* Fee are 0.001 per input.  
+Conditions :
+* Every inputs should have 6 confirmations.
+* Fee are 0.001 per input.
 * Transaction value should be below SPORK_5_INSTANTSEND_MAX_VALUE (see spork route)
 
 POST method:
@@ -393,10 +400,50 @@ Sample output:
 }
 ```
 
+### Proposals Informations
+GET method:
+```
+  /insight-api-dash/gobject/info
+```
+
+Sample output:
+```
+{
+  "result":{
+    "governanceminquorum":1,
+    "masternodewatchdogmaxseconds":7200,
+    "proposalfee":5,
+    "superblockcycle":24,
+    "lastsuperblock":79800,
+    "nextsuperblock":79824,
+    "maxgovobjdatasize":16384
+  },
+  "error":null,
+  "id":68537
+}
+```
+
+### Proposals Count
+GET method:
+```
+  /insight-api-dash/gobject/count
+```
+
+Sample output:
+```
+{
+  "result":"Governance Objects: 47 (Proposals: 7, Triggers: 40, Watchdogs: 0/0, Other: 0; Erased: 0), Votes: 1883",
+  "error":null,
+  "id":47025
+}
+```
+
+
+
 ### Budget Proposal List
 GET method:
 ```
-  /insight-api-dash/gobject/list/proposal
+  /insight-api-dash/gobject/list/proposal (or /insight-api-dash/gobject/list)
 ```
 
 Sample output:
@@ -415,6 +462,28 @@ Sample output:
         YesCount: 40,
         NoCount: 0,
         AbstainCount: 0 } ]
+```
+
+
+
+### Budget Triggers List
+GET method:
+```
+  /insight-api-dash/gobject/list/trigger
+```
+
+Sample output:
+```
+[
+  {
+    "Hash":"fa2a7505c52438b2ca3d14def1c2cdcb59d7ccca417920182f04fcb9be968f00",
+    "DataObject":{"type":2},
+    "AbsoluteYesCount":53,
+    "YesCount":53,
+    "NoCount":0,
+    "AbstainCount":0
+  }
+]
 ```
 
 ### Budget Proposal Detail
@@ -463,6 +532,97 @@ Sample output:
             NoCount: 0,
             AbstainCount: 0
         } } ]
+```
+
+### Proposal Check
+
+GET method:
+```
+  /insight-api-dash/gobject/check/[:hexData]
+  /insight-api-dash/gobject/check/5b5b2270726f706f736[..]
+```
+
+Sample output:
+```
+    {"Object status":"OK"}
+```
+
+### Proposal Deserialization
+
+GET method:
+```
+  /insight-api-dash/gobject/deserialize/[:hexData]
+  /insight-api-dash/gobject/deserialize/5b5b2270726f706f736[..]
+```
+
+Sample output:
+```
+{
+  "result":"[[\"proposal\",{\"end_epoch\":1519848619,\"name\":\"ghijklmnopqrstuvwxyz01234567891519097947\",\"payment_address\":\"yik5HAgVAgjH1oZKjcDfvcf22bwBNbSYzB\",\"payment_amount\":10,\"start_epoch\":1519097947,\"type\":1,\"url\":\"https://www.dashcentral.org/p/test_proposal_1519097947\"}]]",
+  "error":null,
+  "id":78637
+}
+```
+
+### Proposal Current Votes
+
+GET method:
+```
+  /insight-api-dash/gobject/votes/current/[:hash]
+  /insight-api-dash/gobject/votes/current/fbda8cdc1f48917f53b7d63fbce81c85d6dedd3d0e476e979926dfd154b84034
+```
+
+Sample output:
+```
+{
+  "result":"[[\"proposal\",{\"end_epoch\":1519848619,\"name\":\"ghijklmnopqrstuvwxyz01234567891519097947\",\"payment_address\":\"yik5HAgVAgjH1oZKjcDfvcf22bwBNbSYzB\",\"payment_amount\":10,\"start_epoch\":1519097947,\"type\":1,\"url\":\"https://www.dashcentral.org/p/test_proposal_1519097947\"}]]",
+  "error":null,
+  "id":78637
+}
+```
+
+### Governance Budget
+
+GET method:
+```
+  /insight-api-dash/governance/budget/[:blockIndex]
+  /insight-api-dash/governance/budget/79872
+```
+
+Sample output:
+```
+{
+    "result":"60.00",
+    "error":null,
+    "id":75619
+}
+```
+
+### Submit Proposal
+
+POST method:
+```
+  /insight-api-dash/gobject/submit
+```
+
+Exemple input :
+```
+{
+  "parentHash":"abc",
+  "revision":1,
+  "time":10009,
+  "dataHex":"abc",
+  "feeTxId":"abc"
+}
+```
+
+Sample output:
+```
+{
+    "result":"60.00",
+    "error":null,
+    "id":75619
+}
 ```
 
 ### Masternodes List
@@ -648,8 +808,8 @@ There are a few changes to the `GET` endpoint for `/addr/[:address]`:
 
 Some additional general notes:
 - The transaction history for an address will be sorted in block order
-- The response for the `/sync` endpoint does not include `startTs` and `endTs` as the sync is no longer relevant as indexes are built in bitcoind.
-- The endpoint for `/peer` is no longer relevant connection to bitcoind is via ZMQ.
+- The response for the `/sync` endpoint does not include `startTs` and `endTs` as the sync is no longer relevant as indexes are built in dashd.
+- The endpoint for `/peer` is no longer relevant connection to dashd is via ZMQ.
 - `/tx` endpoint results will now include block height, and spentTx related fields will be set to `null` if unspent.
 - `/block` endpoint results does not include `confirmations` and will include `poolInfo`.
 
@@ -668,7 +828,7 @@ The `/tx/<txid>` endpoint JSON response will not include the following fields on
 object.
 - `spentTs`
 
-The `/status?q=getTxOutSetInfo` method has also been removed due to the query being very slow and locking bitcoind.
+The `/status?q=getTxOutSetInfo` method has also been removed due to the query being very slow and locking dashd.
 
 Plug-in support for Insight API is also no longer available, as well as the endpoints:
 - `/email/retrieve`
