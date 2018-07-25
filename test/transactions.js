@@ -222,7 +222,7 @@ describe('Transactions', function() {
         getDetailedTransaction: function(txid, callback) {
           const err = {
             message: 'Transaction Not Found',
-            code: -5,
+            code: -7,
           };
           return callback(err, null);
         },
@@ -240,13 +240,12 @@ describe('Transactions', function() {
         params: { txid }
       };
 
-      var next = function() {
-        // TODO HERE: ensure that res.statusCode is 400
-        // var merged = _.merge(req.transaction, todos);
-        // should(merged).eql(insight);
-        done();
-      };
+      const next = function() {
+        return;
+      }
       transactions.transaction(req, res, next);
+      should(res.statusCode).eql(400);
+      done();
     })
   });
 
