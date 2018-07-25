@@ -202,6 +202,52 @@ describe('Transactions', function() {
 
       transactions.transaction(req, res, next);
     });
+
+    it('should return 400 if txid not found', function(done) {
+      class HTTPMockResponse {
+        status(httpStatusCode) {
+          this.statusCode = httpStatusCode;
+          return this;
+        }
+        send(msg) {
+          return;
+        }
+        jsonp(data) {
+          return;
+        }
+      }
+      let res = new HTTPMockResponse();
+
+      let node = {
+        getDetailedTransaction: function(txid, callback) {
+          const err = {
+            message: 'Transaction Not Found',
+            code: -5,
+          };
+          return callback(err, null);
+        },
+        services: {
+          dashd: {
+            height: 534203
+          },
+        },
+        network: 'testnet'
+      };
+
+      var transactions = new TxController(node);
+      var txid = '0000000000000000000000000000000000000000000000000000000000000001';
+      var req = {
+        params: { txid }
+      };
+
+      var next = function() {
+        // TODO HERE: ensure that res.statusCode is 400
+        // var merged = _.merge(req.transaction, todos);
+        // should(merged).eql(insight);
+        done();
+      };
+      transactions.transaction(req, res, next);
+    })
   });
 
   describe('/txs', function() {
