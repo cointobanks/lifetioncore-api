@@ -29,7 +29,10 @@ FROM node:8-alpine
 LABEL maintainer="Dash Developers <dev@dash.org>"
 LABEL description="Dockerised Insight API"
 
+# Copy project files
 COPY --from=0 /insight/ /insight
+
+WORKDIR /insight
 
 EXPOSE 3001
 
