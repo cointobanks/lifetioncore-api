@@ -1,8 +1,8 @@
 {
-  "name": "@dashevo/insight-api",
-  "description": "A Dash blockchain REST and WebSocket API Service",
-  "version": "2.3.3",
-  "repository": "git://github.com/dashevo/insight-api.git",
+  "name": "lifetioncore-api",
+  "description": "A Lifetion Coin blockchain REST and WebSocket API Service",
+  "version": "2.0.0",
+  "repository": "git://github.com/cointobanks/lifetioncore-api.git",
   "contributors": [
     {
       "name": "Gustavo Cortez",
@@ -38,19 +38,19 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/dashevo/insight-api/issues"
+    "url": "https://github.com/cointobanks/lifetioncore-api/issues"
   },
-  "homepage": "https://github.com/dashevo/insight-api",
+  "homepage": "https://github.com/cointobanks/lifetioncore-api",
   "license": "MIT",
   "keywords": [
     "insight",
     "insight api",
     "blockchain",
-    "dash api",
+    "lifetioncoin api",
     "blockchain api",
     "json",
-    "bitcore-dash",
-    "dashcore"
+    "lifetioncore",
+    "lifetioncore"
   ],
   "engines": {
     "node": ">=6"
@@ -61,7 +61,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "async": "^2.6.2",
-    "@dashevo/dashcore-lib": "^0.17.6",
+    "lifetioncore-lib": "^2.0.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "lodash": "^4.17.11",

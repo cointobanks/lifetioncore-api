@@ -24,7 +24,7 @@ describe('Currency', function() {
     }
   };
 
-  it.skip('will make live request to dash central', function(done) {
+  it.skip('will make live request to lifetioncoin central', function(done) {
     var currency = new CurrencyController({});
     var req = {};
     var res = {

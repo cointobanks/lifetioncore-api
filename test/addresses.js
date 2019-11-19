@@ -3,7 +3,7 @@ var sinon = require('sinon');
 var should = require('should');
 var AddressController = require('../lib/addresses');
 var _ = require('lodash');
-var dashcore = require('@dashevo/dashcore-lib');
+var lifetioncore = require('lifetioncore-lib');
 
 var txinfos = {
   totalCount: 2,
@@ -332,7 +332,7 @@ describe('Addresses', function() {
 
       var node = {
         services: {
-          dashd: {
+          lifetioncoind: {
             height: 534230
           }
         },
@@ -396,7 +396,7 @@ describe('Addresses', function() {
 
       var node = {
         services: {
-          dashd: {
+          lifetioncoind: {
             height: 534230
           }
         },
@@ -555,7 +555,7 @@ describe('Addresses', function() {
       var node = {
         getAddressHistory: sinon.stub().callsArgWith(2, null, txinfos2),
         services: {
-          dashd: {
+          lifetioncoind: {
             height: 534232
           }
         },
@@ -693,7 +693,7 @@ describe('Addresses', function() {
       var node = {
         getAddressHistory: sinon.stub().callsArgWith(2, null, txinfos2),
         services: {
-          dashd: {
+          lifetioncoind: {
             height: 534232
           }
         },
