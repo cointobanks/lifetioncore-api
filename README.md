@@ -60,7 +60,7 @@ lifetioncore-node install lifetioncore-api
 lifetioncore-node start  # to also start the service
 ```
 
-The API endpoints will be available by default at: `http://localhost:3001/insight-api/`
+The API endpoints will be available by default at: `http://localhost:3001/lifetioncore-api/`
 
 ### Prerequisites
 
@@ -70,12 +70,12 @@ The API endpoints will be available by default at: `http://localhost:3001/insigh
 
 ### Query Rate Limit
 
-To protect the server, insight-api has a built-in query rate limiter. It can be configurable in `lifetioncore-node.json` with:
+To protect the server, lifetioncore-api has a built-in query rate limiter. It can be configurable in `lifetioncore-node.json` with:
 
 ```json /*eslint-disable */
 
 "servicesConfig": {
-  "insight-api": {
+  "lifetioncore-api": {
     "rateLimiterOptions": {
       "whitelist": ["::ffff:127.0.0.1"]
     }
@@ -89,7 +89,7 @@ Or disabled entirely with:
 
 ```json /*eslint-disable */
 "servicesConfig": {
-  "insight-api": {
+  "lifetioncore-api": {
     "disableRateLimiter": true
   }
 }
@@ -110,8 +110,8 @@ This will start the Insight-API listening on default port 3001.
 ### Block
 
 ```
-  /insight-api/block/[:hash]
-  /insight-api/block/0000000006e7b38e8ab2d351239019c01de9a148b5baef58cfe52dfd9917cedc
+  /lifetioncore-api/block/[:hash]
+  /lifetioncore-api/block/0000000006e7b38e8ab2d351239019c01de9a148b5baef58cfe52dfd9917cedc
 ```
 
 ### Block Index
@@ -119,8 +119,8 @@ This will start the Insight-API listening on default port 3001.
 Get block hash by height
 
 ```
-  /insight-api/block-index/[:height]
-  /insight-api/block-index/0
+  /lifetioncore-api/block-index/[:height]
+  /lifetioncore-api/block-index/0
 ```
 
 This would return:
@@ -136,7 +136,7 @@ which is the hash of the TestNet Genesis block (0 height)
 ### Raw Block
 
 ```
-  /insight-api/rawblock/[:blockHash]
+  /lifetioncore-api/rawblock/[:blockHash]
 ```
 
 This would return:
@@ -152,7 +152,7 @@ This would return:
 Get block summaries by date:
 
 ```
-  /insight-api/blocks?limit=3&blockDate=2017-04-22
+  /lifetioncore-api/blocks?limit=3&blockDate=2017-04-22
 ```
 
 Example response:
@@ -188,36 +188,36 @@ Example response:
 ### Transaction
 
 ```
-  /insight-api/tx/[:txid]
-  /insight-api/tx/ebdca263fe1c75c8609ce8fe3d82a320a0b3ca840f4df995883f5dab1b9ff8d9
-  /insight-api/rawtx/[:rawid]
-  /insight-api/rawtx/ebdca263fe1c75c8609ce8fe3d82a320a0b3ca840f4df995883f5dab1b9ff8d9
+  /lifetioncore-api/tx/[:txid]
+  /lifetioncore-api/tx/ebdca263fe1c75c8609ce8fe3d82a320a0b3ca840f4df995883f5dab1b9ff8d9
+  /lifetioncore-api/rawtx/[:rawid]
+  /lifetioncore-api/rawtx/ebdca263fe1c75c8609ce8fe3d82a320a0b3ca840f4df995883f5dab1b9ff8d9
 ```
 
 ### Address
 
 ```
-  /insight-api/addr/[:addr][?noTxList=1][&from=&to=]
-  /insight-api/addr/ybi3gej7Ea1MysEYLR7UMs3rMuLJH5aVsW?noTxList=1
-  /insight-api/addr/yPv7h2i8v3dJjfSH4L3x91JSJszjdbsJJA?from=1000&to=2000
+  /lifetioncore-api/addr/[:addr][?noTxList=1][&from=&to=]
+  /lifetioncore-api/addr/ybi3gej7Ea1MysEYLR7UMs3rMuLJH5aVsW?noTxList=1
+  /lifetioncore-api/addr/yPv7h2i8v3dJjfSH4L3x91JSJszjdbsJJA?from=1000&to=2000
   
-  /insight-api/addrs/[:addrs][?noTxList=1][&from=&to=]
-  /insight-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx
-  /insight-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx?from=1000&to=2000
+  /lifetioncore-api/addrs/[:addrs][?noTxList=1][&from=&to=]
+  /lifetioncore-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx
+  /lifetioncore-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx?from=1000&to=2000
 ```
 
 ### Address Properties
 
 ```
-  /insight-api/addr/[:addr]/balance
-  /insight-api/addr/[:addr]/totalReceived
-  /insight-api/addr/[:addr]/totalSent
-  /insight-api/addr/[:addr]/unconfirmedBalance
+  /lifetioncore-api/addr/[:addr]/balance
+  /lifetioncore-api/addr/[:addr]/totalReceived
+  /lifetioncore-api/addr/[:addr]/totalSent
+  /lifetioncore-api/addr/[:addr]/unconfirmedBalance
   
-  /insight-api/addrs/[:addrs]/balance
-  /insight-api/addrs/[:addrs]/totalReceived
-  /insight-api/addrs/[:addrs]/totalSent
-  /insight-api/addrs/[:addrs]/unconfirmedBalance
+  /lifetioncore-api/addrs/[:addrs]/balance
+  /lifetioncore-api/addrs/[:addrs]/totalReceived
+  /lifetioncore-api/addrs/[:addrs]/totalSent
+  /lifetioncore-api/addrs/[:addrs]/unconfirmedBalance
 ```
 
 The response contains the value in Satoshis.
@@ -225,7 +225,7 @@ The response contains the value in Satoshis.
 ### Unspent Outputs
 
 ```
-  /insight-api/addr/[:addr]/utxo
+  /lifetioncore-api/addr/[:addr]/utxo
 ```
 
 Sample return:
@@ -250,14 +250,14 @@ Sample return:
 GET method:
 
 ```
-  /insight-api/addrs/[:addrs]/utxo
-  /insight-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx/utxo
+  /lifetioncore-api/addrs/[:addrs]/utxo
+  /lifetioncore-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx/utxo
 ```
 
 POST method:
 
 ```
-  /insight-api/addrs/utxo
+  /lifetioncore-api/addrs/utxo
 ```
 
 POST params:
@@ -295,15 +295,15 @@ Sample output:
 ### Transactions by Block
 
 ```
-  /insight-api/txs/?block=HASH
-  /insight-api/txs/?block=000000000814dd7cf470bd835334ea6624ebf0291ea857a5ab37c65592726375
+  /lifetioncore-api/txs/?block=HASH
+  /lifetioncore-api/txs/?block=000000000814dd7cf470bd835334ea6624ebf0291ea857a5ab37c65592726375
 ```
 
 ### Transactions by Address
 
 ```
-  /insight-api/txs/?address=ADDR
-  /insight-api/txs/?address=yWFfdp9nLUjy1kJczFhRuBMUjtTkTTiyMv
+  /lifetioncore-api/txs/?address=ADDR
+  /lifetioncore-api/txs/?address=yWFfdp9nLUjy1kJczFhRuBMUjtTkTTiyMv
 ```
 
 ### Transactions for Multiple Addresses
@@ -311,14 +311,14 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/addrs/[:addrs]/txs[?from=&to=]
-  /insight-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx/txs?from=0&to=20
+  /lifetioncore-api/addrs/[:addrs]/txs[?from=&to=]
+  /lifetioncore-api/addrs/ygwNQgE5f15Ygopbs2KPRYMS4TcffqBpsz,ygw5yCtVkx3hREke4L8qDqQtnNoAiPKTSx/txs?from=0&to=20
 ```
 
 POST method:
 
 ```
-  /insight-api/addrs/txs
+  /lifetioncore-api/addrs/txs
 ```
 
 POST params:
@@ -371,7 +371,7 @@ Note: if pagination params are not specified, the result is an array of transact
 POST method:
 
 ```
-  /insight-api/tx/send
+  /lifetioncore-api/tx/send
 ```
 
 POST params:
@@ -408,7 +408,7 @@ Conditions :
 POST method:
 
 ```
-  /insight-api/tx/sendix
+  /lifetioncore-api/tx/sendix
 ```
 
 POST params:
@@ -430,7 +430,7 @@ POST response:
 GET method:
 
 ```
-  /insight-api/sporks
+  /lifetioncore-api/sporks
 ```
 
 Sample output:
@@ -456,7 +456,7 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/info
+  /lifetioncore-api/gobject/info
 ```
 
 Sample output:
@@ -482,7 +482,7 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/count
+  /lifetioncore-api/gobject/count
 ```
 
 Sample output:
@@ -500,7 +500,7 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/list/proposal (or /insight-api/gobject/list)
+  /lifetioncore-api/gobject/list/proposal (or /lifetioncore-api/gobject/list)
 ```
 
 Sample output:
@@ -531,7 +531,7 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/list/trigger
+  /lifetioncore-api/gobject/list/trigger
 ```
 
 Sample output:
@@ -554,8 +554,8 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/get/[:hash]
-  /insight-api/gobject/get/b6af3e70c686f660541a77bc035df2e5e46841020699ce3ec8fad786f7d1aa35
+  /lifetioncore-api/gobject/get/[:hash]
+  /lifetioncore-api/gobject/get/b6af3e70c686f660541a77bc035df2e5e46841020699ce3ec8fad786f7d1aa35
 ```
 
 Sample output:
@@ -605,8 +605,8 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/check/[:hexData]
-  /insight-api/gobject/check/5b5b2270726f706f736[..]
+  /lifetioncore-api/gobject/check/[:hexData]
+  /lifetioncore-api/gobject/check/5b5b2270726f706f736[..]
 ```
 
 Sample output:
@@ -620,8 +620,8 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/deserialize/[:hexData]
-  /insight-api/gobject/deserialize/5b5b2270726f706f736[..]
+  /lifetioncore-api/gobject/deserialize/[:hexData]
+  /lifetioncore-api/gobject/deserialize/5b5b2270726f706f736[..]
 ```
 
 Sample output:
@@ -639,8 +639,8 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/gobject/votes/current/[:hash]
-  /insight-api/gobject/votes/current/fbda8cdc1f48917f53b7d63fbce81c85d6dedd3d0e476e979926dfd154b84034
+  /lifetioncore-api/gobject/votes/current/[:hash]
+  /lifetioncore-api/gobject/votes/current/fbda8cdc1f48917f53b7d63fbce81c85d6dedd3d0e476e979926dfd154b84034
 ```
 
 Sample output:
@@ -658,8 +658,8 @@ Sample output:
 GET method:
 
 ```
-  /insight-api/governance/budget/[:blockIndex]
-  /insight-api/governance/budget/79872
+  /lifetioncore-api/governance/budget/[:blockIndex]
+  /lifetioncore-api/governance/budget/79872
 ```
 
 Sample output:
@@ -677,7 +677,7 @@ Sample output:
 POST method:
 
 ```
-  /insight-api/gobject/submit
+  /lifetioncore-api/gobject/submit
 ```
 
 Example input:
@@ -717,19 +717,19 @@ Sample output:
 ### Historic Blockchain Data Sync Status
 
 ```
-  /insight-api/sync
+  /lifetioncore-api/sync
 ```
 
 ### Live Network P2P Data Sync Status
 
 ```
-  /insight-api/peer
+  /lifetioncore-api/peer
 ```
 
 ### Status of the Bitcoin Network
 
 ```
-  /insight-api/status?q=xxx
+  /lifetioncore-api/status?q=xxx
 ```
 
 Where "xxx" can be:
@@ -742,7 +742,7 @@ Where "xxx" can be:
 ### Utility Methods
 
 ```
-  /insight-api/utils/estimatefee[?nbBlocks=2]
+  /lifetioncore-api/utils/estimatefee[?nbBlocks=2]
 ```
 
 ## Web Socket API
@@ -812,12 +812,12 @@ The following html page connects to the socket.io insight API and listens for ne
 ```html
 <html>
 <body>
-  <script src="http://<insight-server>:<port>/socket.io/socket.io.js"></script>
+  <script src="http://<lifetioncore-server>:<port>/socket.io/socket.io.js"></script>
   <script>
     eventToListenTo = 'tx'
     room = 'inv'
 
-    var socket = io("http://<insight-server>:<port>/");
+    var socket = io("http://<lifetioncore-server>:<port>/");
     socket.on('connect', function() {
       // Join the room.
       socket.emit('subscribe', room);

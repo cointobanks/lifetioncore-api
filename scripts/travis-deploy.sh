@@ -26,7 +26,7 @@ fi
 # Publish the npm module
 npm publish
 
-IMAGE_NAME="dashpay/insight-api"
+IMAGE_NAME="lifetioncore-api"
 
 # Build Docker image
 docker build -t "${IMAGE_NAME}:latest" \
